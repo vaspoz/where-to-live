@@ -24,6 +24,9 @@ public class CountryRate {
     @Column(name = "OVERALL")
     private Double overall;
 
+    public CountryRate() {
+    }
+
     public CountryRate(String baseCountry, String baseCity, String comparedWithCountry, String comparedWithCity, Double expenses, Double salary, Double overall) {
         this.baseCountry = baseCountry;
         this.baseCity = baseCity;
