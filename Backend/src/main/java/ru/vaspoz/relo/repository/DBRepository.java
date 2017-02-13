@@ -1,8 +1,8 @@
 package ru.vaspoz.relo.repository;
 
+import ru.vaspoz.relo.model.CountryRate;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.vaspoz.relo.model.CountryRate;
 
 import java.util.List;
 

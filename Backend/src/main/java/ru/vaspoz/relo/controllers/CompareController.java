@@ -1,18 +1,15 @@
 package ru.vaspoz.relo.controllers;
 
+import ru.vaspoz.relo.model.CountryRate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vaspoz.relo.model.CountryRate;
 import ru.vaspoz.relo.repository.DBRepository;
 
-import javax.ws.rs.PathParam;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 public class CompareController {
@@ -46,5 +43,4 @@ public class CompareController {
     public String pong() {
         return "ping";
     }
-
 }
