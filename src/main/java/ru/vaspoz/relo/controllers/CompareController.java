@@ -32,6 +32,13 @@ public class CompareController {
         return resultList;
     }
 
+    @RequestMapping(value = "/cleaning-room/{countries}", method = RequestMethod.GET)
+    public void cleanCountryRecords(@PathVariable String[] countries) {
+        for (String country : countries) {
+            service.cleanCountryRecords(country);
+        }
+    }
+
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public String ping() {
         return "pong";

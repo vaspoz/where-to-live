@@ -11,4 +11,6 @@ public interface CountryRatesRepository extends CrudRepository<CountryRate, Long
 
     public List<CountryRate> findByBaseCountryAndBaseCityAndComparedWithCountry(String base_country, String base_city, String compared_with_country);
     public List<CountryRate> findByBaseCountryAndBaseCity(String base_country, String base_city);
+
+    void deleteByComparedWithCountry(String compared_with_country);
 }
