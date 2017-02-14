@@ -1,5 +1,6 @@
 package ru.vaspoz.relo;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,12 +37,18 @@ public class MigrateCitiesListToDB {
     @Autowired
     CountriesRepository countriesRepository;
 
+    @Before
+    public void cleanUp() {
+        citiesRepository.deleteAll();
+        countriesRepository.deleteAll();
+    }
+
     @Test
     public void migrate() throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         Files.lines(Paths.get("src\\main\\resources\\db\\countriesToCities.json"))
                 .forEach(x -> stringBuilder.append(x));
-        String jsonLine = stringBuilder.toString().replaceAll(" ", "");
+        String jsonLine = stringBuilder.toString();
 
         JsonParser json = JsonParserFactory.getJsonParser();
         Map<String, Object> parcedJson = json.parseMap(jsonLine);
