@@ -3,6 +3,7 @@ package ru.vaspoz.relo.services;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
 import ru.vaspoz.relo.model.City;
 import ru.vaspoz.relo.model.Country;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@Transactional
 public class CountryRateService {
 
     private static Logger log = Logger.getLogger(CountryRateService.class);
@@ -79,5 +81,9 @@ public class CountryRateService {
 
         return resultingRates;
 
+    }
+
+    public void cleanCountryRecords(String country) {
+        countryRatesRepository.deleteByComparedWithCountry(country);
     }
 }
