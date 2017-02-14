@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface CitiesRepository extends CrudRepository<City, Integer> {
 
-    public List<City> findByCountry(String country);
+    public List<City> findByCountryId(Integer countryId);
 
 }
