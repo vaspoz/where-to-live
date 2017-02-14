@@ -7,7 +7,7 @@ import ru.vaspoz.relo.model.CountryRate;
 import java.util.List;
 
 @Repository
-public interface DBRepository extends CrudRepository<CountryRate, Long> {
+public interface CountryRatesRepository extends CrudRepository<CountryRate, Long> {
 
     public List<CountryRate> findByBaseCountryAndBaseCityAndComparedWithCountry(String base_country, String base_city, String compared_with_country);
     public List<CountryRate> findByBaseCountryAndBaseCity(String base_country, String base_city);

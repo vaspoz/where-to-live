@@ -9,7 +9,7 @@ import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.vaspoz.relo.model.CountryRate;
-import ru.vaspoz.relo.repository.DBRepository;
+import ru.vaspoz.relo.repository.CountryRatesRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,7 +42,7 @@ import java.util.Set;
 public class MigrateExistingData {
 
     @Autowired
-    DBRepository repository;
+    CountryRatesRepository repository;
 
     @Test
     public void migrate() throws IOException {

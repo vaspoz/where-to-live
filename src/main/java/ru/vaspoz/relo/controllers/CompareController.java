@@ -1,24 +1,21 @@
 package ru.vaspoz.relo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vaspoz.relo.model.CountryRate;
-import ru.vaspoz.relo.repository.DBRepository;
+import ru.vaspoz.relo.services.CountryRateService;
 
-import javax.ws.rs.PathParam;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 public class CompareController {
 
     @Autowired
-    private DBRepository repository;
+    private CountryRateService service;
 
     @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with/{countriesToCompare}", method = RequestMethod.GET)
     public List<CountryRate> getComparedCountriesList(
@@ -28,9 +25,7 @@ public class CompareController {
     ) {
         List<CountryRate> resultList = new ArrayList<>();
         for (String countryToCompare : countriesToCompare) {
-            List<CountryRate> rateByOneCountry = repository.findByBaseCountryAndBaseCityAndComparedWithCountry(
-                    baseCountry, baseCity, countryToCompare
-            );
+            List<CountryRate> rateByOneCountry = service.getCountriesComparedRates(baseCountry, baseCity, countryToCompare);
             resultList.addAll(rateByOneCountry);
         }
 
