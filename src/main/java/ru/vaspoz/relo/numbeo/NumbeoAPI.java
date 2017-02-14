@@ -40,9 +40,14 @@ public class NumbeoAPI {
         Stream<String> expensesDifStream = Arrays.stream(columnElements.toArray())
                 .map(elt -> ((Element) elt).text())
                 .filter(elt -> elt.contains("%"))
-                .map(elt -> elt.replace("%", "").replace(" ", ""));
+                .map(elt -> elt.replace("%", "").replace(" ", "").replace(",", ""));
 
         Difference bothDifference = parseDoublesOrThrowException(salaryDifString, expensesDifStream);
+        if (bothDifference.getExpences().size() == 0) throw
+                new ParsingDoublesException("Exception occurred during Double.parse() values: " +
+                        "salaryDif " + salaryDifString + " and " +
+                        "expensesDifList " + bothDifference.getExpences());
+
         normalizeExpencesList(bothDifference.getExpences());
 
         // Calculate median value
@@ -63,6 +68,7 @@ public class NumbeoAPI {
 
     private void normalizeExpencesList(List<Double> expences) {
         // For more correct calculations, remove the biggest expenses and the lowest expenses
+        if (expences.size() < 3) return;
         expences.remove(0);
         expences.remove(expences.size() - 1);
     }
@@ -117,5 +123,54 @@ public class NumbeoAPI {
         public void setExpences(List<Double> expences) {
             this.expences = expences;
         }
+    }
+
+    public static void main(String[] args) {
+        String s = "Philippines\n" +
+                "51\tAustralia\n" +
+                "52\tVietnam\n" +
+                "53\tRussia\n" +
+                "54\tFrance\n" +
+                "55\tGermany\n" +
+                "56\tIsrael\n" +
+                "57\tSweden\n" +
+                "58\tItaly\n" +
+                "59\tNetherlands\n" +
+                "60\tGreece\n" +
+                "61\tSpain\n" +
+                "62\tAustria\n" +
+                "63\tUnited Kingdom\n" +
+                "64\tBelgium\n" +
+                "65\tUnited Arab Emirates\n" +
+                "66\tPortugal\n" +
+                "67\tSaudi Arabia\n" +
+                "68\tDenmark\n" +
+                "69\tNorway\n" +
+                "70\tMexico\n" +
+                "71\tCanada\n" +
+                "72\tCyprus\n" +
+                "73\tCzech Republic\n" +
+                "74\tSwitzerland\n" +
+                "75\tFinland\n" +
+                "76\tBulgaria\n" +
+                "77\tPoland\n" +
+                "78\tIreland\n" +
+                "79\tNew Zealand\n" +
+                "80\tSingapore\n" +
+                "81\tBahamas\n" +
+                "82\tMorocco\n" +
+                "83\tArgentina\n" +
+                "84\tMalta\n";
+        System.out.println(Arrays.stream(s.split("\n"))
+                .map(token -> {
+                    String[] sp = token.split("\t");
+                    if (sp.length == 2) {
+                        return sp[1];
+                    } else {
+                        return sp[0];
+                    }
+                })
+                .reduce((a, b) -> a + "," + b).toString());
+
     }
 }
