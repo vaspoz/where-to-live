@@ -1,10 +1,9 @@
 package ru.vaspoz.relo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.model.CountryRate;
 import ru.vaspoz.relo.services.CountryRateService;
 
@@ -37,6 +36,17 @@ public class CompareController {
         for (String country : countries) {
             service.cleanCountryRecords(country);
         }
+    }
+
+    @RequestMapping(value = "/cities/by/{country}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCitiesByCountry(@PathVariable String country) {
+        try {
+            List<String> cities = service.getCitiesByCountry(country);
+            return ResponseEntity.ok(cities);
+        } catch (CountryNotFoundException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
 import ru.vaspoz.relo.model.City;
 import ru.vaspoz.relo.model.Country;
@@ -15,7 +16,9 @@ import ru.vaspoz.relo.repository.CountriesRepository;
 import ru.vaspoz.relo.repository.CountryRatesRepository;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -85,5 +88,17 @@ public class CountryRateService {
 
     public void cleanCountryRecords(String country) {
         countryRatesRepository.deleteByComparedWithCountry(country);
+    }
+
+    public List<String> getCitiesByCountry(String countryName) throws CountryNotFoundException {
+        Country country = countriesRepository.findByCountry(countryName);
+        if (country == null) {
+            throw new CountryNotFoundException();
+        }
+        List<City> cities = citiesRepository.findByCountryId(country.getId());
+        cities.toArray();
+        return Arrays.stream(cities.toArray())
+                .map(elt -> ((City)elt).getCity())
+                .collect(Collectors.toList());
     }
 }
