@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -99,6 +100,13 @@ public class CountryRateService {
         cities.toArray();
         return Arrays.stream(cities.toArray())
                 .map(elt -> ((City)elt).getCity())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getCountriesList() {
+        Iterable<Country> countryIter = countriesRepository.findAll();
+        return StreamSupport.stream(countryIter.spliterator(), false)
+                .map(Country::getCountry)
                 .collect(Collectors.toList());
     }
 }
