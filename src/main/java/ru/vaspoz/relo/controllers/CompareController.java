@@ -20,7 +20,7 @@ public class CompareController {
     private CountryRateService service;
 
     @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with/{countriesToCompare}", method = RequestMethod.GET)
-    public List<CountryRate> getComparedCountriesList(
+    public List<CountryRate> getComparedCountriesListAll(
             @PathVariable String baseCountry,
             @PathVariable String baseCity,
             @PathVariable String[] countriesToCompare
@@ -32,6 +32,15 @@ public class CompareController {
         }
 
         return resultList;
+    }
+
+    @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with/{countryToCompare}", method = RequestMethod.GET)
+    public List<CountryRate> getComparedCountriesListByCountry(
+            @PathVariable String baseCountry,
+            @PathVariable String baseCity,
+            @PathVariable String countryToCompare
+    ) {
+        return service.getCountriesComparedRates(baseCountry, baseCity, countryToCompare);
     }
 
     @RequestMapping(value = "/cleaning-room/{countries}", method = RequestMethod.GET)
