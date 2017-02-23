@@ -59,7 +59,7 @@ public class NumbeoAPI {
         return new OverallRates(
                 make2digits(expenses),
                 make2digits(bothDifference.getSalary()),
-                0.0);
+                0.0);  // todo: Defer overall calculations
     }
 
     private Double make2digits(Double d) {

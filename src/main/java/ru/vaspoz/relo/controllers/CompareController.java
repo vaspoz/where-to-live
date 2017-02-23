@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
-import ru.vaspoz.relo.model.CountryRate;
+import ru.vaspoz.relo.model.CountryRateResponseGET;
 import ru.vaspoz.relo.services.CountryRateService;
 
 import java.util.ArrayList;
@@ -19,28 +19,28 @@ public class CompareController {
     @Autowired
     private CountryRateService service;
 
-    @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with/{countriesToCompare}", method = RequestMethod.GET)
-    public List<CountryRate> getComparedCountriesListAll(
+    @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with-all/{countriesToCompare}", method = RequestMethod.GET)
+    public List<CountryRateResponseGET> getComparedCountriesListAll(
             @PathVariable String baseCountry,
             @PathVariable String baseCity,
             @PathVariable String[] countriesToCompare
     ) {
-        List<CountryRate> resultList = new ArrayList<>();
+        List<CountryRateResponseGET> resultList = new ArrayList<>();
         for (String countryToCompare : countriesToCompare) {
-            List<CountryRate> rateByOneCountry = service.getCountriesComparedRates(baseCountry, baseCity, countryToCompare);
-            resultList.addAll(rateByOneCountry);
+            CountryRateResponseGET rateByOneCountry = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
+            resultList.add(rateByOneCountry);
         }
 
         return resultList;
     }
 
     @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with/{countryToCompare}", method = RequestMethod.GET)
-    public List<CountryRate> getComparedCountriesListByCountry(
+    public CountryRateResponseGET getComparedCountriesListBySingleCountry(
             @PathVariable String baseCountry,
             @PathVariable String baseCity,
             @PathVariable String countryToCompare
     ) {
-        return service.getCountriesComparedRates(baseCountry, baseCity, countryToCompare);
+        return service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
     }
 
     @RequestMapping(value = "/cleaning-room/{countries}", method = RequestMethod.GET)

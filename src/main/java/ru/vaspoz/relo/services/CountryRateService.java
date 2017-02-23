@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
-import ru.vaspoz.relo.model.City;
-import ru.vaspoz.relo.model.Country;
-import ru.vaspoz.relo.model.CountryRate;
+import ru.vaspoz.relo.model.*;
 import ru.vaspoz.relo.numbeo.NumbeoAPI;
 import ru.vaspoz.relo.numbeo.model.OverallRates;
 import ru.vaspoz.relo.repository.CitiesRepository;
@@ -16,6 +14,7 @@ import ru.vaspoz.relo.repository.CountriesRepository;
 import ru.vaspoz.relo.repository.CountryRatesRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +35,7 @@ public class CountryRateService {
     @Autowired
     private CitiesRepository citiesRepository;
 
-    public List<CountryRate> getCountriesComparedRates(
+    public CountryRateResponseGET getSingleCountryComparedRates(
             String baseCountry,
             String baseCity,
             String countryToCompare) {
@@ -83,8 +82,24 @@ public class CountryRateService {
             }
         }
 
-        return resultingRates;
+        return transformEntityToResponse(countryToCompare, resultingRates);
+    }
 
+    private CountryRateResponseGET transformEntityToResponse(String countryToCompare, List<CountryRate> countryRateList) {
+        CountryRateResponseGET countryRateResponse = new CountryRateResponseGET();
+        countryRateResponse.setCountry(countryToCompare);
+        countryRateResponse.setCityRates(new ArrayList<>());
+
+        for (CountryRate countryRate : countryRateList) {
+            countryRateResponse.getCityRates().add(new CityRate(
+                    countryRate.getComparedWithCity(),
+                    countryRate.getExpenses(),
+                    countryRate.getSalary(),
+                    countryRate.getOverall()
+            ));
+        }
+
+        return countryRateResponse;
     }
 
     public void cleanCountryRecords(String country) {
@@ -99,7 +114,7 @@ public class CountryRateService {
         List<City> cities = citiesRepository.findByCountryId(country.getId());
         cities.toArray();
         return Arrays.stream(cities.toArray())
-                .map(elt -> ((City)elt).getCity())
+                .map(elt -> ((City) elt).getCity())
                 .collect(Collectors.toList());
     }
 
