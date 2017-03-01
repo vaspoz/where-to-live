@@ -2,7 +2,7 @@ package ru.vaspoz.relo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ public class MigrateCountryCityListToDB {
     @Autowired
     CountriesRepository countriesRepository;
 
-    @Before
     public void cleanUp() {
         citiesRepository.deleteAll();
         countriesRepository.deleteAll();
     }
 
     @Test
+    @Ignore
     public void migrate() throws IOException {
         Document mainPage = Jsoup.connect("https://www.numbeo.com/cost-of-living/").get();
 
