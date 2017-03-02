@@ -17,7 +17,8 @@ import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MigrateCountryCityListToDB {
+@Ignore
+public class DownloadCityListFromExternalToDB {
 
     @Autowired
     CitiesRepository citiesRepository;
@@ -31,7 +32,6 @@ public class MigrateCountryCityListToDB {
     }
 
     @Test
-    @Ignore
     public void migrate() throws IOException {
         Document mainPage = Jsoup.connect("https://www.numbeo.com/cost-of-living/").get();
 
