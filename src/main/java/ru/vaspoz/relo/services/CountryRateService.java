@@ -76,7 +76,8 @@ public class CountryRateService {
                     log.error(e.getMessage());
                 } catch (NullPointerException npe) {
                     npe.printStackTrace();
-                    log.error(npe.getMessage());
+                    log.error("\nCould not find\n\tCity [" + city.getCity() + "]\n\tCountry [" + country.getCountry() + "]" +
+                            "\nCity will be deleted from data table CITIES\n");
                     citiesRepository.delete(city);
                 }
             }
