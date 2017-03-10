@@ -28,7 +28,6 @@ public class CompareController {
             @PathVariable String baseCity,
             @PathVariable String[] countriesToCompare
     ) {
-        log.error("\"getComparedCountriesListAll\" has been called");
         List<CountryRateResponseGET> resultList = new ArrayList<>();
         for (String countryToCompare : countriesToCompare) {
             CountryRateResponseGET rateByOneCountry = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
