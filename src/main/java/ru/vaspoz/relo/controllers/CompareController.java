@@ -1,5 +1,6 @@
 package ru.vaspoz.relo.controllers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import java.util.List;
 @RestController
 public class CompareController {
 
+    private static Logger log = Logger.getLogger(CompareController.class);
+
     @Autowired
     private CountryRateService service;
 
@@ -25,6 +28,7 @@ public class CompareController {
             @PathVariable String baseCity,
             @PathVariable String[] countriesToCompare
     ) {
+        log.error("\"getComparedCountriesListAll\" has been called");
         List<CountryRateResponseGET> resultList = new ArrayList<>();
         for (String countryToCompare : countriesToCompare) {
             CountryRateResponseGET rateByOneCountry = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
