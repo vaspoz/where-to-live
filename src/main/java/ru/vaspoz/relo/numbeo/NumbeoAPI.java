@@ -29,7 +29,7 @@ public class NumbeoAPI {
                                               String compareToCity) throws ParsingDoublesException, IOException {
         Document doc = Jsoup.connect(getLink(baseCountry, baseCity, compareToCountry, compareToCity)).get();
 
-        String salaryDifString = doc.select("tr:contains(Average Monthly Disposable Salary)>td")
+        String salaryDifString = doc.select("tr:contains(Salary)>td")
                 .last()         //returns columns. Percentage locates in last column
                 .children()     //returns list of tags in last column
                 .last()         //desired tag
