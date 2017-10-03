@@ -1,5 +1,6 @@
 package ru.vaspoz.relo;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class WhereToLiveApplicationTests {
 
     @Autowired

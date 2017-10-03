@@ -28,8 +28,7 @@ import java.util.Set;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
-public class MigrateCityListToDB {
+public class MigrateCityListToDBTest {
 
     @Autowired
     CitiesRepository citiesRepository;
