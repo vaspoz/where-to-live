@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Class's purpose is only for initial migration data from existing json to DB.
+ * Class's purpose is for additional migration data from existing json to DB.
  * Run it only in case you have json data to import.
  * Accept format:
  * {
