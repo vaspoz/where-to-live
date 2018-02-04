@@ -6,10 +6,10 @@
 	<groupId>ru.vaspoz.relo</groupId>
 	<artifactId>where-to-live</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>where-to-live</name>
-	<description>Project helps to compare countries by incomes and general outcomes</description>
+	<description>Project helps to compare countries by incomes and general expenses</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
