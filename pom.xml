@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>where-to-live</name>
-	<!--<description>Project helps to compare countries by incomes and general expenses</description>-->
+	<description>Project helps to compare countries by incomes and general expenses</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
