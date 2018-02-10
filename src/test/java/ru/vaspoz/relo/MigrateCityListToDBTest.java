@@ -14,7 +14,9 @@ import ru.vaspoz.relo.model.Country;
 import ru.vaspoz.relo.repository.CitiesRepository;
 import ru.vaspoz.relo.repository.CountriesRepository;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.Set;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class MigrateCityListToDBTest {
 
     @Autowired
