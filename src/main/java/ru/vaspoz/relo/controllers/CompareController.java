@@ -22,6 +22,11 @@ public class CompareController {
     @Autowired
     private CountryRateService service;
 
+    @RequestMapping(value="/", method =  RequestMethod.GET)
+    public String hello() {
+        return "Hello, World!";
+    }
+
     @RequestMapping(value = "/compare/{baseCountry}/{baseCity}/with-all/{countriesToCompare}", method = RequestMethod.GET)
     public List<CountryRateResponseGET> getComparedCountriesListAll(
             @PathVariable String baseCountry,
