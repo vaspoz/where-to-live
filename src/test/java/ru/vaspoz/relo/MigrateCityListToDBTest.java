@@ -28,7 +28,6 @@ import java.util.Set;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
 public class MigrateCityListToDBTest {
 
     @Autowired

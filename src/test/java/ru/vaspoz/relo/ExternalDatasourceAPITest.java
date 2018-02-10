@@ -2,16 +2,16 @@ package ru.vaspoz.relo;
 
 import org.junit.Test;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
-import ru.vaspoz.relo.numbeo.NumbeoAPI;
-import ru.vaspoz.relo.numbeo.model.OverallRates;
+import ru.vaspoz.relo.external.ExternalDatasourceAPI;
+import ru.vaspoz.relo.external.model.OverallRates;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
-public class NumbeoAPITest {
+public class ExternalDatasourceAPITest {
 
-    NumbeoAPI api = NumbeoAPI.getAPI();
+    ExternalDatasourceAPI api = ExternalDatasourceAPI.getAPI();
 
     @Test
     public void shouldReturn3Doubles() throws ParsingDoublesException, IOException {

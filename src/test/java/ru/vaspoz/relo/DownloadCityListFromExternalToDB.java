@@ -33,7 +33,7 @@ public class DownloadCityListFromExternalToDB {
 
     @Test
     public void migrate() throws IOException {
-        Document mainPage = Jsoup.connect("https://www.numbeo.com/cost-of-living/").get();
+        Document mainPage = Jsoup.connect("https://www.external.com/cost-of-living/").get();
 
         mainPage.select("select[name=\"country\"]>option")
                 .forEach(elt -> {
@@ -44,7 +44,7 @@ public class DownloadCityListFromExternalToDB {
                     countriesRepository.save(country);
                     try {
                         Document citiesPage = Jsoup
-                                .connect("https://www.numbeo.com/cost-of-living/country_result.jsp?country=" +
+                                .connect("https://www.external.com/cost-of-living/country_result.jsp?country=" +
                                         countryName.replaceAll(" ", "+")).get();
                         citiesPage.select("select[name=\"city\"]>option")
                                 .forEach(cityElt -> {

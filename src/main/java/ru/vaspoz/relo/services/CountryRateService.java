@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
 import ru.vaspoz.relo.model.*;
-import ru.vaspoz.relo.numbeo.NumbeoAPI;
-import ru.vaspoz.relo.numbeo.model.OverallRates;
+import ru.vaspoz.relo.external.ExternalDatasourceAPI;
+import ru.vaspoz.relo.external.model.OverallRates;
 import ru.vaspoz.relo.repository.CitiesRepository;
 import ru.vaspoz.relo.repository.CountriesRepository;
 import ru.vaspoz.relo.repository.CountryRatesRepository;
@@ -50,7 +50,7 @@ public class CountryRateService {
             if (country == null) return null;
             List<City> cities = citiesRepository.findByCountryId(country.getId());
 
-            NumbeoAPI api = NumbeoAPI.getAPI();
+            ExternalDatasourceAPI api = ExternalDatasourceAPI.getAPI();
             for (City city : cities) {
                 try {
                     OverallRates ratesForGivenCity = api.getRatesBetweenCities(

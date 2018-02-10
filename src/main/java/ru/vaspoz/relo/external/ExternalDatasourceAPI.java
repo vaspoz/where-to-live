@@ -1,11 +1,11 @@
-package ru.vaspoz.relo.numbeo;
+package ru.vaspoz.relo.external;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.vaspoz.relo.exceptions.ParsingDoublesException;
-import ru.vaspoz.relo.numbeo.model.OverallRates;
+import ru.vaspoz.relo.external.model.OverallRates;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class NumbeoAPI {
+public class ExternalDatasourceAPI {
 
-    private NumbeoAPI() {
+    private ExternalDatasourceAPI() {
 
     }
 
-    public static NumbeoAPI getAPI() {
-        return new NumbeoAPI();
+    public static ExternalDatasourceAPI getAPI() {
+        return new ExternalDatasourceAPI();
     }
 
     public OverallRates getRatesBetweenCities(String baseCountry,
