@@ -18,8 +18,8 @@ public class ExternalDatasourceAPITest {
 
         String baseCountry = "Poland";
         String baseCity = "Gdansk";
-        String compareToCountry = "China";
-        String compareToCity = "Hohhot";
+        String compareToCountry = "Australia";
+        String compareToCity = "Melbourne";
 
         OverallRates rates = api.getRatesBetweenCities(baseCountry, baseCity, compareToCountry, compareToCity);
 
