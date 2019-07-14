@@ -11,5 +11,9 @@ compare_countries.trace.db
 */
 ``` 
 ```shell
-2. mvn spring-boot:run 
+2. mvn spring-boot:run -Drun.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+/*
+the jvm args will allow you to remotely debug your 
+application in RT.
+Just add new Remote configuration in IntelliJ IDEA
 ```
