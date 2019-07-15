@@ -125,4 +125,12 @@ public class CountryRateService {
                 .map(Country::getCountry)
                 .collect(Collectors.toList());
     }
+
+    public List<String> get5bestCountries(String baseCountry, String baseCity) {
+        List<String> bestCountries = new ArrayList<>();
+        bestCountries.add("AAA");
+        bestCountries.add("BBB");
+        bestCountries.add("CCC");
+        return bestCountries;
+    }
 }

@@ -56,10 +56,12 @@ public class ExternalDatasourceAPI {
                 .reduce((elA, elB) -> elA + elB)
                 .get() / bothDifference.getExpences().size();
 
+        Double overallValue = bothDifference.getSalary() - expenses;
+
         return new OverallRates(
                 make2digits(expenses),
                 make2digits(bothDifference.getSalary()),
-                0.0);  // todo: Defer overall calculations
+                make2digits(overallValue));
     }
 
     private Double make2digits(Double d) {
