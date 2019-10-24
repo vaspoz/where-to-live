@@ -14,7 +14,6 @@ import ru.vaspoz.relo.auth.JwtUserDetailsService;
 import ru.vaspoz.relo.model.UserDTO;
 
 @RestController
-@CrossOrigin
 public class JwtAuthenticationController {
 
     @Autowired
