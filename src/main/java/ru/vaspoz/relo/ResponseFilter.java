@@ -17,7 +17,8 @@ public class ResponseFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
         HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper(httpServletResponse);
-        wrapper.addHeader("Access-Control-Allow-Origin", "*");
+        wrapper.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        wrapper.addHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
 
         filterChain.doFilter(httpServletRequest, wrapper);
     }
