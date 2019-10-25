@@ -2,17 +2,13 @@ package ru.vaspoz.relo.auth;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.h2.message.DbException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.vaspoz.relo.model.UserAuthenticated;
+import ru.vaspoz.relo.model.UserInfo;
 import ru.vaspoz.relo.model.UserDTO;
 import ru.vaspoz.relo.repository.UsersRepository;
 
@@ -20,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JwtUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsService implements UserDetailsService{
 
     protected final Log logger = LogFactory.getLog(this.getClass());
 
@@ -31,24 +27,31 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UsersRepository usersRepository;
 
-
-    public UserDetails loadUserByUsername(String username) {
-        List<UserAuthenticated> users = usersRepository.findByUsername(username);
-        UserAuthenticated user = users.get(0);
+    public UserInfo loadUserByUsername(String username) {
+        List<UserInfo> users = usersRepository.findByUsername(username);
+        UserInfo user = users.get(0);
         if (user == null) {
-            throw new UsernameNotFoundException("UserAuthenticated not found with username: " + username);
+            throw new UsernameNotFoundException("UserInfo not found with username: " + username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                new ArrayList<>());
+        return user;
     }
 
     public boolean save(UserDTO user) {
-        UserAuthenticated newUser = new UserAuthenticated();
+        UserInfo newUser = new UserInfo();
+
+        if (usersRepository.findByUsername(user.getUsername()).size() > 0) {
+            logger.error("User with the name [" + user.getUsername() + "] already exists.");
+            return false;
+        }
 
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setCountryOrigin(user.getCountryOrigin());
         newUser.setEmail(user.getEmail());
+        newUser.setAccountNonExpired(true);
+        newUser.setAccountNonLocked(true);
+        newUser.setCredentialsNonExpired(true);
+        newUser.setEnabled(true);
 
         try {
             usersRepository.save(newUser);

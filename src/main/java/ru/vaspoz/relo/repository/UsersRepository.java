@@ -2,14 +2,13 @@ package ru.vaspoz.relo.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.vaspoz.relo.model.UserAuthenticated;
-import ru.vaspoz.relo.model.UserDTO;
+import ru.vaspoz.relo.model.UserInfo;
 
 import java.util.List;
 
 @Repository
-public interface UsersRepository extends CrudRepository<UserAuthenticated, Integer> {
+public interface UsersRepository extends CrudRepository<UserInfo, Integer> {
 
-    public List<UserAuthenticated> findByUsername(String Username);
+    public List<UserInfo> findByUsername(String Username);
 
 }
