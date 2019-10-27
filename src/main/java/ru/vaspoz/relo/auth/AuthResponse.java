@@ -10,7 +10,7 @@ public class AuthResponse implements Serializable {
 
     private String jwttoken;
     private UserDTO userDTO;
-    private String errorMessage;
+    private String error;
     private String errorCode;
 
     public static long getSerialVersionUID() {
@@ -25,8 +25,8 @@ public class AuthResponse implements Serializable {
         this.userDTO = userDTO;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public void setErrorCode(String errorCode) {
@@ -41,8 +41,8 @@ public class AuthResponse implements Serializable {
         return userDTO;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getError() {
+        return error;
     }
 
     public String getErrorCode() {

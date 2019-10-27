@@ -33,7 +33,7 @@ public class JwtAuthenticationController {
             authenticate(userLogin.getUsername(), userLogin.getPassword());
         } catch (BadCredentialsException bce) {
             response.setErrorCode("5"); //todo: create variables
-            response.setErrorMessage("Bad credentials");
+            response.setError("Bad credentials");
             return ResponseEntity.badRequest().body(response);
         }
 
@@ -55,7 +55,7 @@ public class JwtAuthenticationController {
             return createAuthenticationToken(userDTO);
         } else {
             response.setErrorCode("4");
-            response.setErrorMessage("User already exists");
+            response.setError("User already exists");
             return ResponseEntity.badRequest().body(response);
         }
 
