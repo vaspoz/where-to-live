@@ -48,7 +48,7 @@ public class MigrateCityListToDBTest {
     @Test
     public void migrate() throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        Files.lines(Paths.get("src\\main\\resources\\db\\countriesToCities.json"))
+        Files.lines(Paths.get("src/main/resources/db/countriesToCities.json"))
                 .forEach(x -> stringBuilder.append(x));
         String jsonLine = stringBuilder.toString();
 
