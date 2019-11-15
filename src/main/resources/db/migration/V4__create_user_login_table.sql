@@ -1,5 +1,7 @@
 create table users (
     id                          int primary key auto_increment,
+    first_name                   varchar,
+    last_name                    varchar,
     username                    varchar,
     password                    varchar,
     email                       varchar,

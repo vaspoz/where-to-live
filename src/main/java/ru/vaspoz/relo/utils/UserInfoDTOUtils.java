@@ -7,6 +7,8 @@ public class UserInfoDTOUtils {
 
     public static UserDTO infoToDTO(UserInfo userInfo) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(userInfo.getFirstName());
+        userDTO.setLastName(userInfo.getLastName());
         userDTO.setPassword(userInfo.getPassword());
         userDTO.setUsername(userInfo.getUsername());
         userDTO.setCountryOrigin(userInfo.getCountryOrigin());
@@ -17,6 +19,8 @@ public class UserInfoDTOUtils {
 
     public static UserInfo DTOtoInfo(UserDTO userDTO) {
         UserInfo userInfo = new UserInfo();
+        userInfo.setFirstName(userDTO.getFirstName());
+        userInfo.setLastName(userDTO.getLastName());
         userInfo.setCountryOrigin(userDTO.getCountryOrigin());
         userInfo.setEmail(userDTO.getEmail());
         userInfo.setPassword(userDTO.getPassword());

@@ -26,8 +26,9 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<AuthResponse> createAuthenticationToken(@RequestBody UserDTO userLogin) {
+    public ResponseEntity<AuthResponse> createAuthenticationToken(@RequestBody UserDTO userLogin) throws InterruptedException {
 
+        Thread.sleep(1500);
         AuthResponse response = new AuthResponse();
         try {
             authenticate(userLogin.getUsername(), userLogin.getPassword());

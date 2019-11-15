@@ -29,10 +29,10 @@ public class JwtUserDetailsService implements UserDetailsService{
 
     public UserInfo loadUserByUsername(String username) {
         List<UserInfo> users = usersRepository.findByUsername(username);
-        UserInfo user = users.get(0);
-        if (user == null) {
+        if (users.size() == 0) {
             throw new UsernameNotFoundException("UserInfo not found with username: " + username);
         }
+        UserInfo user = users.get(0);
         return user;
     }
 
@@ -45,6 +45,8 @@ public class JwtUserDetailsService implements UserDetailsService{
         }
 
         newUser.setUsername(user.getUsername());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setCountryOrigin(user.getCountryOrigin());
         newUser.setEmail(user.getEmail());
