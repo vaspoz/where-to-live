@@ -23,8 +23,14 @@
         <profile>
             <id>prod</id>
             <properties>
-                <activeProfile>release</activeProfile>
+                <activeProfile>prod</activeProfile>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
