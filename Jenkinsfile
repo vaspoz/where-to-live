@@ -3,6 +3,12 @@ pipeline {
   stages {
     stage('compile') {
       steps {
+        tool 'maven'
+      }
+    }
+
+    stage('mvn') {
+      steps {
         sh 'mvn clean install'
       }
     }
