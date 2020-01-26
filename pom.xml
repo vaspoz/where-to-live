@@ -147,7 +147,7 @@
                 <version>2.2</version>
                 <configuration>
                     <server>tomcat-server</server>
-                    <url>http://35.159.30.173:9999/manager/text</url>
+                    <url>http://172.26.1.146:9999/manager/text</url>
                     <path>/aliyah</path>
                     <update>true</update>
                 </configuration>
