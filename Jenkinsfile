@@ -1,12 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('pull') {
-      steps {
-        sh 'git pull origin master'
-      }
-    }
-
     stage('build') {
       steps {
         tool 'maven'
