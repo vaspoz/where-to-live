@@ -14,8 +14,11 @@ pipeline {
     }
 
   }
+  tools {
+    maven 'maven'
+  }
   environment {
     MAVEN_HOME = '/opt/apache-maven-3.6.3'
-    PATH = '"$PATH:/opt/apache-maven-3.6.3/bin"'
+    PATH = '$PATH:/opt/apache-maven-3.6.3/bin'
   }
 }
