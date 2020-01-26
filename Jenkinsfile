@@ -3,6 +3,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
+        sh 'git pull origin master'
+      }
+      }
+      steps {
         tool 'maven'
         sh 'mvn clean install -Pprod'
       }
