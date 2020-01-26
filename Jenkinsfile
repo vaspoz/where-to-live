@@ -1,11 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
+    stage('pull') {
       steps {
         sh 'git pull origin master'
       }
-      }
+    }
+
+    stage('build') {
       steps {
         tool 'maven'
         sh 'mvn clean install -Pprod'
