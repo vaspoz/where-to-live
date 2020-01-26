@@ -1,6 +1,7 @@
 target/
 logs/
 .mvn
+Jenkinsfile
 
 ### STS ###
 .apt_generated
