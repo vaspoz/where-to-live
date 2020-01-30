@@ -75,7 +75,7 @@ public class CompareController {
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public String ping() {
-        return "yet another pong";
+        return "pong";
     }
 
     @RequestMapping(value = "/pong", method = RequestMethod.GET)
