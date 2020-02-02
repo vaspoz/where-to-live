@@ -25,6 +25,11 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String testLogin() {
+        return "login ok";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<AuthResponse> createAuthenticationToken(@RequestBody UserDTO userLogin) throws InterruptedException {
 
