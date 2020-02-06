@@ -81,12 +81,15 @@ public class CompareController {
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public String ping() {
 
+        log.info("new request");
+
         try {
             cityMigrationComponent.migrate();
             log.info("cities migrated");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        log.error("after migration");
         return "pong!";
     }
 
