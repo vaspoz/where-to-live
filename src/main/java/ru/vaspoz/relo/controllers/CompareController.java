@@ -83,6 +83,7 @@ public class CompareController {
 
         try {
             cityMigrationComponent.migrate();
+            log.info("cities migrated");
         } catch (IOException e) {
             e.printStackTrace();
         }

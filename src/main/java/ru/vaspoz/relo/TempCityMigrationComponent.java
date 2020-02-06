@@ -49,6 +49,7 @@ public class TempCityMigrationComponent {
             for (String city : cities) {
                 City currentCity = new City(city, currentCountry);
                 citiesRepository.save(currentCity);
+                System.out.println("City migrated: " + currentCity.getCity());
             }
         }
     }
