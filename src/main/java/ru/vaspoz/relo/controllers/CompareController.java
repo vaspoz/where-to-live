@@ -86,7 +86,7 @@ public class CompareController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "pong-pong";
+        return "pong!";
     }
 
     @RequestMapping(value = "/pong", method = RequestMethod.GET)
