@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ru.vaspoz.relo.TempCityMigrationComponent;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.model.CountryRateResponseGET;
 import ru.vaspoz.relo.services.CountryRateService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class CompareController {
 
     @Autowired
     private CountryRateService service;
+
+    @Autowired
+    private TempCityMigrationComponent cityMigrationComponent;
 
     @RequestMapping(value="/", method =  RequestMethod.GET)
     public String hello() {
@@ -75,6 +80,12 @@ public class CompareController {
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public String ping() {
+
+        try {
+            cityMigrationComponent.migrate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "pong-pong";
     }
 
