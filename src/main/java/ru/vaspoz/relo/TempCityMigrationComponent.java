@@ -32,7 +32,7 @@ public class TempCityMigrationComponent {
         countriesRepository.deleteAll();
 
         StringBuilder stringBuilder = new StringBuilder();
-        Files.lines(Paths.get("src/main/resources/db/countriesToCities.json"))
+        Files.lines(Paths.get("db/countriesToCities.json"))
                 .forEach(x -> stringBuilder.append(x));
         String jsonLine = stringBuilder.toString();
 
