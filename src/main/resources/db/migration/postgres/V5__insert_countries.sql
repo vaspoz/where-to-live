@@ -1,0 +1,1 @@
+COPY COUNTRIES FROM '../countries.csv' DELIMITER ',' CSV HEADER;
