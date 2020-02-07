@@ -1,2 +1,2 @@
-COPY COUNTRIES FROM 'db/migration/countries.csv' DELIMITER ',' CSV HEADER;
-COPY CITIES FROM 'db/migration/cities.csv' DELIMITER ',' CSV HEADER;
+COPY COUNTRIES FROM 'countries.csv' DELIMITER ',' CSV HEADER;
+COPY CITIES FROM 'cities.csv' DELIMITER ',' CSV HEADER;
