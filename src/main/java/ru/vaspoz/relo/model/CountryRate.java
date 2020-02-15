@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class CountryRate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "BASE_COUNTRY")
     private String baseCountry;
