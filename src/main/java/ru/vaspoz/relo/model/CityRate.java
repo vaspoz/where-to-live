@@ -65,4 +65,14 @@ public class CityRate {
     public int hashCode() {
         return Objects.hash(city, expenses, salary, overall);
     }
+
+    @Override
+    public String toString() {
+        return "CityRate{" +
+                "city='" + city + '\'' +
+                ",\texpenses=" + expenses +
+                ",\tsalary=" + salary +
+                ",\toverall=" + overall +
+                '}';
+    }
 }

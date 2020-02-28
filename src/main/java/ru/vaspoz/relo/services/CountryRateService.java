@@ -5,15 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
-import ru.vaspoz.relo.exceptions.ParsingDoublesException;
 import ru.vaspoz.relo.model.*;
-import ru.vaspoz.relo.external.ExternalDatasourceAPI;
-import ru.vaspoz.relo.external.model.OverallRates;
 import ru.vaspoz.relo.repository.CitiesRepository;
 import ru.vaspoz.relo.repository.CountriesRepository;
 import ru.vaspoz.relo.repository.CountryRatesRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,55 +31,50 @@ public class CountryRateService {
     @Autowired
     private CitiesRepository citiesRepository;
 
+    @Autowired
+    private CityRatesService cityRatesService;
+
     public CountryRateResponseGET getSingleCountryComparedRates(
             String baseCountry,
             String baseCity,
             String countryToCompare) {
 
-        List<CountryRate> resultingRates = countryRatesRepository.findByBaseCountryAndBaseCityAndComparedWithCountry(
-                baseCountry,
-                baseCity,
-                countryToCompare);
+        Double baseSalaryData = cityRatesService.getCityOverallSalary(baseCountry, baseCity);
+        Double baseExpensesData = cityRatesService.getCityOverallExpenses(baseCountry, baseCity);
 
-        if (resultingRates == null || resultingRates.size() == 0) {
-            Country country = countriesRepository.findByCountry(countryToCompare);
-            if (country == null) return null;
-            List<City> cities = citiesRepository.findByCountryId(country.getId());
+        Country country = countriesRepository.findByCountry(countryToCompare);
+        if (country == null) return null;
+        List<City> cities = citiesRepository.findByCountryId(country.getId());
 
-            ExternalDatasourceAPI api = ExternalDatasourceAPI.getAPI();
-            for (City city : cities) {
-                try {
-                    OverallRates ratesForGivenCity = api.getRatesBetweenCities(
-                            baseCountry,
-                            baseCity,
-                            country.getCountry(),
-                            city.getCity()
-                    );
-                    CountryRate fetchedFromNumbeo = new CountryRate(
-                            baseCountry,
-                            baseCity,
-                            country.getCountry(),
-                            city.getCity(),
-                            ratesForGivenCity.getExpenses(),
-                            ratesForGivenCity.getSalary(),
-                            ratesForGivenCity.getOverall()
-                    );
+        List<CountryRate> resultingRates = new ArrayList<>();
 
-                    countryRatesRepository.save(fetchedFromNumbeo);
-                    resultingRates.add(fetchedFromNumbeo);
-                } catch (ParsingDoublesException | IOException e) {
-                    e.printStackTrace();
-                    log.error(e.getMessage());
-                } catch (NullPointerException npe) {
-                    npe.printStackTrace();
-                    log.error("\nCould not find\n\tCity [" + city.getCity() + "]\n\tCountry [" + country.getCountry() + "]" +
-                            "\nCity will be deleted from data table CITIES\n");
-                    citiesRepository.delete(city);
-                }
-            }
+        for (City city : cities) {
+            String countryName = city.getCountry().getCountry();
+            String cityName = city.getCity();
+            Double salary = cityRatesService.getCityOverallSalary(countryName, cityName);
+            Double expenses = cityRatesService.getCityOverallExpenses(countryName, cityName);
+
+            Double relativeExpensesValue = getRelativeValue(expenses, baseExpensesData);
+            Double relativeSalaryValue = getRelativeValue(salary, baseSalaryData);
+            Double relativeOverallValue = Double.sum(relativeSalaryValue, -relativeExpensesValue);
+
+            resultingRates.add(new CountryRate(
+                    baseCountry,
+                    baseCity,
+                    countryName,
+                    cityName,
+                    make2digits(relativeExpensesValue),
+                    make2digits(relativeSalaryValue),
+                    make2digits(relativeOverallValue)
+            ));
         }
 
         return transformEntityToResponse(countryToCompare, resultingRates);
+    }
+
+    private Double getRelativeValue(Double firstValue, Double secondValue) {
+        return 100 * (Double.sum(firstValue, -secondValue)) / secondValue;
+
     }
 
     private CountryRateResponseGET transformEntityToResponse(String countryToCompare, List<CountryRate> countryRateList) {
@@ -133,4 +124,9 @@ public class CountryRateService {
         bestCountries.add("CCC");
         return bestCountries;
     }
+
+    private Double make2digits(Double d) {
+        return Math.floor(d * 100) / 100;
+    }
+
 }
