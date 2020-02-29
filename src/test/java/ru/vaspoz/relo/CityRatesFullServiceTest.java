@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.*;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CityRatesFullServiceTest {
