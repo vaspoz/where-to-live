@@ -48,7 +48,7 @@ public class CompareController {
             @PathVariable String baseCity,
             @PathVariable String countryToCompare
     ) {
-        return service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
+        return service.getSingleCountryComparedRates_old(baseCountry, baseCity, countryToCompare,-1);
     }
 
     @RequestMapping(value = "/cleaning-room/{countries}", method = RequestMethod.GET)

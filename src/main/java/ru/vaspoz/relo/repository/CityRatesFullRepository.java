@@ -7,7 +7,7 @@ import ru.vaspoz.relo.model.CityRateFull;
 import java.util.List;
 
 @Repository
-public interface CityRatesRepository extends CrudRepository<CityRateFull, Integer> {
+public interface CityRatesFullRepository extends CrudRepository<CityRateFull, Integer> {
 
     public List<CityRateFull> findByCountryAndCity(String country, String city);
 

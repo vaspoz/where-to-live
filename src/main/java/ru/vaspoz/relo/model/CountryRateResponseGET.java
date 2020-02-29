@@ -44,4 +44,12 @@ public class CountryRateResponseGET {
     public int hashCode() {
         return Objects.hash(country, cityRates);
     }
+
+    @Override
+    public String toString() {
+        return "CountryRateResponseGET{" +
+                "country='" + country + '\'' +
+                ", cityRates=" + cityRates +
+                '}';
+    }
 }
