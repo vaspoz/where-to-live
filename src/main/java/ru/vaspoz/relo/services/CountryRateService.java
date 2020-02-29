@@ -50,6 +50,9 @@ public class CountryRateService {
         if (country == null) return null;
         List<City> cities = citiesRepository.findByCountryId(country.getId());
 
+        if (amountOfCities == -1)
+            amountOfCities = cities.size();
+
         for (int i = 0; i < amountOfCities; i++) {
             City city = cities.get(i);
             try {
