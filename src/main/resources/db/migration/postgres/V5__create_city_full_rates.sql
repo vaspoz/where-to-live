@@ -1,5 +1,5 @@
 create table CITY_RATES_FULL (
-    id                  int primary key serial,
+    id                  serial primary key,
     country             varchar not null,
     city                varchar not null,
         VALUE_01    real,
