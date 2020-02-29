@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class CountryRateResponseGET {
     private String country;
-    private List<CityRate> cityRates;
+    private List<RelativeCityRate> relativeCityRates;
 
     public CountryRateResponseGET() {
     }
 
-    public CountryRateResponseGET(String country, List<CityRate> cityRates) {
+    public CountryRateResponseGET(String country, List<RelativeCityRate> relativeCityRates) {
         this.country = country;
-        this.cityRates = cityRates;
+        this.relativeCityRates = relativeCityRates;
     }
 
     public String getCountry() {
@@ -23,12 +23,12 @@ public class CountryRateResponseGET {
         this.country = country;
     }
 
-    public List<CityRate> getCityRates() {
-        return cityRates;
+    public void addRelativeCityRate(RelativeCityRate relativeCityRate) {
+        this.relativeCityRates.add(relativeCityRate);
     }
 
-    public void setCityRates(List<CityRate> cityRates) {
-        this.cityRates = cityRates;
+    public void setRelativeCityRates(List<RelativeCityRate> relativeCityRates) {
+        this.relativeCityRates = relativeCityRates;
     }
 
     @Override
@@ -37,19 +37,19 @@ public class CountryRateResponseGET {
         if (o == null || getClass() != o.getClass()) return false;
         CountryRateResponseGET that = (CountryRateResponseGET) o;
         return Objects.equals(country, that.country) &&
-                Objects.equals(cityRates, that.cityRates);
+                Objects.equals(relativeCityRates, that.relativeCityRates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, cityRates);
+        return Objects.hash(country, relativeCityRates);
     }
 
     @Override
     public String toString() {
         return "CountryRateResponseGET{" +
                 "country='" + country + '\'' +
-                ", cityRates=" + cityRates +
+                ", relativeCityRates=" + relativeCityRates +
                 '}';
     }
 }

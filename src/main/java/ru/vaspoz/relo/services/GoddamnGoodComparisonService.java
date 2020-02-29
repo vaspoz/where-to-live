@@ -2,9 +2,9 @@ package ru.vaspoz.relo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vaspoz.relo.external.model.OverallRates;
+import ru.vaspoz.relo.model.OverallRates;
 import ru.vaspoz.relo.model.*;
-import ru.vaspoz.relo.repository.CityRatesFullRepository;
+import ru.vaspoz.relo.repository.SingleCityDatasetRepository;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,10 +14,10 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class CityRatesFullService {
+public class GoddamnGoodComparisonService {
 
     @Autowired
-    private CityRatesFullRepository cityRatesFullRepository;
+    private SingleCityDatasetRepository singleCityDatasetRepository;
 
     public Double getCityOverallSalary(String country, String city) {
         return getCityOverallValue(country, city, "salary");
@@ -38,19 +38,19 @@ public class CityRatesFullService {
             indEnd = 54;
         }
 
-        List<CityRateFull> cityRateList = cityRatesFullRepository.findByCountryAndCity(country, city);
+        List<SingleCityDataset> cityRateList = singleCityDatasetRepository.findByCountryAndCity(country, city);
         if (cityRateList.size() != 1) {
             return 0.0;
         }
 
-        CityRateFull cityRate = cityRateList.get(0);
+        SingleCityDataset cityRate = cityRateList.get(0);
 
         double overalMedianValue = 0.0;
         List<Double> doubles = new ArrayList<>();
 
         for (int i = indBegin; i <= indEnd; i++) {
             try {
-                Method getValue = CityRateFull.class.getDeclaredMethod("getValue_" + (i < 10 ? "0" + i : i));
+                Method getValue = SingleCityDataset.class.getDeclaredMethod("getValue_" + (i < 10 ? "0" + i : i));
                 Double value = (Double) getValue.invoke(cityRate);
                 if (value == null || Double.compare(value, 0.0) == 0) {
                     continue;
@@ -81,15 +81,15 @@ public class CityRatesFullService {
 
     public OverallRates getRatesBetweenCities(String baseCountry, String baseCity, String country, String city) {
 
-        CityRateFull baseCityRates = cityRatesFullRepository.findByCountryAndCity(baseCountry, baseCity).get(0);
-        CityRateFull comparedCityRates = cityRatesFullRepository.findByCountryAndCity(country, city).get(0);
+        SingleCityDataset baseCityRates = singleCityDatasetRepository.findByCountryAndCity(baseCountry, baseCity).get(0);
+        SingleCityDataset comparedCityRates = singleCityDatasetRepository.findByCountryAndCity(country, city).get(0);
 
         List<Double> expensesRelativeValueList = new ArrayList<>();
         Double salaryRelativeValue = 0.0;
 
         for (int i = 1; i <= 54; i++) {
             try {
-                Method getValueMethod = CityRateFull.class.getDeclaredMethod("getValue_" + (i < 10 ? "0" + i : i));
+                Method getValueMethod = SingleCityDataset.class.getDeclaredMethod("getValue_" + (i < 10 ? "0" + i : i));
 
                 Double baseValue = (Double) getValueMethod.invoke(baseCityRates);
                 Double comparedValue = (Double) getValueMethod.invoke(comparedCityRates);

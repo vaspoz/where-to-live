@@ -1,14 +1,13 @@
 package ru.vaspoz.relo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.vaspoz.relo.model.CityRate;
+import ru.vaspoz.relo.model.RelativeCityRate;
 import ru.vaspoz.relo.model.CountryRateResponseGET;
-import ru.vaspoz.relo.services.CountryRateService;
+import ru.vaspoz.relo.services.AliyahResponseService;
 
 import java.util.Collections;
 
@@ -16,11 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
-public class WhereToLiveApplicationTests {
+public class WhereToLiveApplicationTest {
 
     @Autowired
-    private CountryRateService countryRateService;
+    private AliyahResponseService aliyahResponseService;
 
     @Test
     public void contextLoads() {
@@ -32,19 +30,19 @@ public class WhereToLiveApplicationTests {
         String baseCity = "Gdansk";
         String countryToCompare = "Hong Kong";
 
-        CityRate hongKongCityRate = new CityRate(
+        RelativeCityRate hongKongRelativeCityRate = new RelativeCityRate(
                 "Hong Kong",
-                162.87,
-                225.09,
-                0.0
+                159.81,
+                203.38,
+                43.56
         );
         CountryRateResponseGET expectedResponseGET = new CountryRateResponseGET(
                 "Hong Kong",
-                Collections.singletonList(hongKongCityRate)
+                Collections.singletonList(hongKongRelativeCityRate)
         );
 
-        CountryRateResponseGET actualResponse = countryRateService.getSingleCountryComparedRates(
-                baseCountry, baseCity, countryToCompare
+        CountryRateResponseGET actualResponse = aliyahResponseService.getSingleCountryComparedRates(
+                baseCountry, baseCity, countryToCompare, -1
         );
 
         assertThat(actualResponse).isEqualTo(expectedResponseGET);

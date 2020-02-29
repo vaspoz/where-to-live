@@ -1,4 +1,4 @@
-package ru.vaspoz.relo.external.model;
+package ru.vaspoz.relo.model;
 
 public class OverallRates {
 

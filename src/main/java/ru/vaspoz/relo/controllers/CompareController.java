@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.model.CountryRateResponseGET;
-import ru.vaspoz.relo.services.CountryRateService;
+import ru.vaspoz.relo.services.AliyahResponseService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class CompareController {
     private static Logger log = Logger.getLogger(CompareController.class);
 
     @Autowired
-    private CountryRateService service;
+    private AliyahResponseService service;
 
-    @RequestMapping(value="/", method =  RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hello() {
         return "Hello, World!";
     }
@@ -35,7 +35,7 @@ public class CompareController {
     ) {
         List<CountryRateResponseGET> resultList = new ArrayList<>();
         for (String countryToCompare : countriesToCompare) {
-            CountryRateResponseGET rateByOneCountry = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare);
+            CountryRateResponseGET rateByOneCountry = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare, -1);
             resultList.add(rateByOneCountry);
         }
 
@@ -48,14 +48,8 @@ public class CompareController {
             @PathVariable String baseCity,
             @PathVariable String countryToCompare
     ) {
-        return service.getSingleCountryComparedRates_v2(baseCountry, baseCity, countryToCompare,-1);
-    }
-
-    @RequestMapping(value = "/cleaning-room/{countries}", method = RequestMethod.GET)
-    public void cleanCountryRecords(@PathVariable String[] countries) {
-        for (String country : countries) {
-            service.cleanCountryRecords(country);
-        }
+        CountryRateResponseGET responseGET = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare, -1);
+        return responseGET;
     }
 
     @RequestMapping(value = "/cities/by/{country}", method = RequestMethod.GET)

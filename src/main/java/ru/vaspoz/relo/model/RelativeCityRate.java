@@ -2,16 +2,16 @@ package ru.vaspoz.relo.model;
 
 import java.util.Objects;
 
-public class CityRate {
+public class RelativeCityRate {
     private String city;
     private Double expenses;
     private Double salary;
     private Double overall;
 
-    public CityRate() {
+    public RelativeCityRate() {
     }
 
-    public CityRate(String city, Double expenses, Double salary, Double overall) {
+    public RelativeCityRate(String city, Double expenses, Double salary, Double overall) {
         this.city = city;
         this.expenses = expenses;
         this.salary = salary;
@@ -54,11 +54,11 @@ public class CityRate {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CityRate cityRate = (CityRate) o;
-        return Objects.equals(city, cityRate.city) &&
-                Objects.equals(expenses, cityRate.expenses) &&
-                Objects.equals(salary, cityRate.salary) &&
-                Objects.equals(overall, cityRate.overall);
+        RelativeCityRate relativeCityRate = (RelativeCityRate) o;
+        return Objects.equals(city, relativeCityRate.city) &&
+                Objects.equals(expenses, relativeCityRate.expenses) &&
+                Objects.equals(salary, relativeCityRate.salary) &&
+                Objects.equals(overall, relativeCityRate.overall);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CityRate {
 
     @Override
     public String toString() {
-        return "CityRate{" +
+        return "RelativeCityRate{" +
                 "city='" + city + '\'' +
                 ",\texpenses=" + expenses +
                 ",\tsalary=" + salary +

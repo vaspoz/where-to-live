@@ -1,33 +1,20 @@
 package ru.vaspoz.relo.model;
 
-import javax.persistence.*;
+public class TwoCitiesComparisonData {
 
-@Entity
-@Table(name = "COUNTRY_RATES")
-public class CountryRate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "BASE_COUNTRY")
     private String baseCountry;
-    @Column(name = "BASE_CITY")
     private String baseCity;
-    @Column(name = "COMPARED_WITH_COUNTRY")
     private String comparedWithCountry;
-    @Column(name = "COMPARED_WITH_CITY")
     private String comparedWithCity;
-    @Column(name = "EXPENSES")
     private Double expenses;
-    @Column(name = "SALARY")
     private Double salary;
-    @Column(name = "OVERALL")
     private Double overall;
 
-    public CountryRate() {
+    public TwoCitiesComparisonData() {
     }
 
-    public CountryRate(String baseCountry, String baseCity, String comparedWithCountry, String comparedWithCity, Double expenses, Double salary, Double overall) {
+    public TwoCitiesComparisonData(String baseCountry, String baseCity, String comparedWithCountry, String comparedWithCity, Double expenses, Double salary, Double overall) {
         this.baseCountry = baseCountry;
         this.baseCity = baseCity;
         this.comparedWithCountry = comparedWithCountry;
@@ -95,7 +82,7 @@ public class CountryRate {
 
     @Override
     public String toString() {
-        return "CountryRate{" +
+        return "TwoCitiesComparisonData{" +
                 "id=" + id +
                 ", baseCountry='" + baseCountry + '\'' +
                 ", baseCity='" + baseCity + '\'' +

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CITY_RATES_FULL")
-public class CityRateFull {
+public class SingleCityDataset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,76 +125,7 @@ public class CityRateFull {
     @Column(name = "VALUE_55")
     private Double value_55;
 
-    public CityRateFull() {
-    }
-
-    public Double getExpensesSum() {
-        return ifNotNull(getValue_01())
-                + ifNotNull(getValue_02())
-                + ifNotNull(getValue_03())
-                + ifNotNull(getValue_04())
-                + ifNotNull(getValue_05())
-                + ifNotNull(getValue_06())
-                + ifNotNull(getValue_07())
-                + ifNotNull(getValue_08())
-                + ifNotNull(getValue_09())
-                + ifNotNull(getValue_10())
-                + ifNotNull(getValue_11())
-                + ifNotNull(getValue_12())
-                + ifNotNull(getValue_13())
-                + ifNotNull(getValue_14())
-                + ifNotNull(getValue_15())
-                + ifNotNull(getValue_16())
-                + ifNotNull(getValue_17())
-                + ifNotNull(getValue_18())
-                + ifNotNull(getValue_19())
-                + ifNotNull(getValue_20())
-                + ifNotNull(getValue_21())
-                + ifNotNull(getValue_22())
-                + ifNotNull(getValue_23())
-                + ifNotNull(getValue_24())
-                + ifNotNull(getValue_25())
-                + ifNotNull(getValue_26())
-                + ifNotNull(getValue_27())
-                + ifNotNull(getValue_28())
-                + ifNotNull(getValue_29())
-                + ifNotNull(getValue_30())
-                + ifNotNull(getValue_31())
-                + ifNotNull(getValue_32())
-                + ifNotNull(getValue_33())
-                + ifNotNull(getValue_34())
-                + ifNotNull(getValue_35())
-                + ifNotNull(getValue_36())
-                + ifNotNull(getValue_37())
-                + ifNotNull(getValue_38())
-                + ifNotNull(getValue_39())
-                + ifNotNull(getValue_40())
-                + ifNotNull(getValue_41())
-                + ifNotNull(getValue_42())
-                + ifNotNull(getValue_43())
-                + ifNotNull(getValue_44())
-                + ifNotNull(getValue_45())
-                + ifNotNull(getValue_46())
-                + ifNotNull(getValue_47())
-                + ifNotNull(getValue_48())
-                + ifNotNull(getValue_49())
-                + ifNotNull(getValue_50())
-                + ifNotNull(getValue_51())
-                + ifNotNull(getValue_52())
-                + ifNotNull(getValue_53());
-
-    }
-
-    public Double getSalary() {
-        return ifNotNull(getValue_54());
-    }
-
-    public int getAmountExpensesNullValues() {
-        return 0;
-    }
-
-    private Double ifNotNull(Double value) {
-        return value == null ? 0.0 : value;
+    public SingleCityDataset() {
     }
 
     public Integer getId() {
@@ -663,7 +594,7 @@ public class CityRateFull {
 
     @Override
     public String toString() {
-        return "CityRateFull{" +
+        return "SingleCityDataset{" +
                 "id=" + id +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
