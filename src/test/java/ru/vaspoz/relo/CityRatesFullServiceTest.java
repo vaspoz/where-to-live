@@ -1,5 +1,6 @@
 package ru.vaspoz.relo;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.*;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CityRatesFullServiceTest {
