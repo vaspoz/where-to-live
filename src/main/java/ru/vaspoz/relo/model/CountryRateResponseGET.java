@@ -27,6 +27,10 @@ public class CountryRateResponseGET {
         this.relativeCityRates.add(relativeCityRate);
     }
 
+    public List<RelativeCityRate> getRelativeCityRates() {
+        return this.relativeCityRates;
+    }
+
     public void setRelativeCityRates(List<RelativeCityRate> relativeCityRates) {
         this.relativeCityRates = relativeCityRates;
     }
