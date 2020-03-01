@@ -81,7 +81,7 @@ public class AliyahResponseService {
     private CountryRateResponseGET transformEntityToResponse(String countryToCompare, List<TwoCitiesComparisonData> citiesComparisonDataList) {
         CountryRateResponseGET countryRateResponse = new CountryRateResponseGET();
         countryRateResponse.setCountry(countryToCompare);
-        countryRateResponse.setRelativeCityRates(new ArrayList<>());
+        countryRateResponse.setRelativeCityRateList(new ArrayList<>());
 
         for (TwoCitiesComparisonData countryRate : citiesComparisonDataList) {
             countryRateResponse.addRelativeCityRate(new RelativeCityRate(
