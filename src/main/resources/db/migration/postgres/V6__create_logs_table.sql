@@ -1,4 +1,4 @@
-create table CITY_RATES_FULL (
+create table LOGS (
     id                  serial primary key,
     username            varchar not null,
     action              varchar not null,
