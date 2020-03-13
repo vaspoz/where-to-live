@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.vaspoz.relo.auth.AuthResponse;
 import ru.vaspoz.relo.auth.JwtTokenUtil;
 import ru.vaspoz.relo.auth.JwtUserDetailsService;
+import ru.vaspoz.relo.model.LogActions;
 import ru.vaspoz.relo.model.UserDTO;
 import ru.vaspoz.relo.model.UserInfo;
+import ru.vaspoz.relo.services.LoggingService;
 import ru.vaspoz.relo.utils.UserInfoDTOUtils;
 
 @RestController
@@ -24,6 +26,9 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Autowired
+    private LoggingService loggingService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String testLogin() {
@@ -40,6 +45,7 @@ public class JwtAuthenticationController {
         } catch (BadCredentialsException bce) {
             response.setErrorCode("5"); //todo: create variables
             response.setError("Bad credentials");
+            loggingService.writeUserIncorrectLogin(userLogin.getUsername());
             return ResponseEntity.badRequest().body(response);
         }
 
@@ -47,6 +53,8 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userInfo);
         response.setJwttoken(token);
         response.setUserDTO(UserInfoDTOUtils.infoToDTO(userInfo));
+
+        loggingService.writeUserLogin(userLogin.getUsername());
 
         return ResponseEntity.ok(response);
 
@@ -58,6 +66,7 @@ public class JwtAuthenticationController {
         AuthResponse response = new AuthResponse();
         boolean result = userDetailsService.save(userDTO);
         if (result) {
+            loggingService.newUserSugnedUp(userDTO.getUsername());
             return createAuthenticationToken(userDTO);
         } else {
             response.setErrorCode("4");

@@ -3,13 +3,16 @@ package ru.vaspoz.relo.controllers;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ru.vaspoz.relo.auth.AuthContext;
 import ru.vaspoz.relo.exceptions.CountryNotFoundException;
 import ru.vaspoz.relo.model.CountryRateResponseGET;
 import ru.vaspoz.relo.services.AliyahResponseService;
+import ru.vaspoz.relo.services.LoggingService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,9 @@ public class CompareController {
 
     @Autowired
     private AliyahResponseService service;
+
+    @Autowired
+    private LoggingService loggingService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hello() {
@@ -48,6 +54,9 @@ public class CompareController {
             @PathVariable String baseCity,
             @PathVariable String countryToCompare
     ) {
+
+        loggingService.compareCountries(baseCountry, baseCity, countryToCompare);
+
         CountryRateResponseGET responseGET = service.getSingleCountryComparedRates(baseCountry, baseCity, countryToCompare, -1);
         return responseGET;
     }
