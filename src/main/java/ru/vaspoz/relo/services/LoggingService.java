@@ -64,4 +64,13 @@ public class LoggingService {
     public void compareCountries(String basecountry, String basecity, String comparecountry) {
         writeLog(AuthContext.currentUser(), LogActions.COMPARE, basecountry, basecity, comparecountry, "Comparison requested");
     }
+
+    public List<AliyahLog> getLogsLast(Integer numLines) {
+
+        List<AliyahLog> getAll = logsRepository.findByOrderByCreatedatetimeDesc();
+        if (numLines > 0)
+            getAll =getAll.subList(0, numLines - 1);
+        return getAll;
+
+    }
 }

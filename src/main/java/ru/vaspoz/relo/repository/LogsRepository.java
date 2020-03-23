@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface LogsRepository extends CrudRepository<AliyahLog, Integer> {
 
+    List<AliyahLog> findByOrderByCreatedatetimeDesc();
 
 }
